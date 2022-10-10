@@ -4,6 +4,8 @@
 // Implements QueueInterface using a linked list.
 //---------------------------------------------------------------------------
 
+import java.util.Iterator;
+
 public class LinkedQueue<T> implements QueueInterface<T>
 {
   protected LLNode<T> front;     // reference to the front of this queue
@@ -26,6 +28,7 @@ public class LinkedQueue<T> implements QueueInterface<T>
       rear.setLink(newNode);
       rear = newNode;
       numElements++;
+    System.out.println(element);
   }     
 
   public T dequeue()
@@ -67,83 +70,82 @@ public class LinkedQueue<T> implements QueueInterface<T>
 
   public String toString()
   {
-    String printData = "";
-
-    if (isEmpty())
+    String getString = "";
+    LLNode<T> itemFront = front;
+    //exception
+    if(isEmpty()) {
+      throw new QueueUnderflowException("Error. Queue is Empty.");
+    }
+    while(itemFront != null)
     {
-      throw new QueueUnderflowException("Print attempted on empty queue.");
+      getString += itemFront.getInfo().toString() + " ";
+      itemFront = itemFront.getLink();
+    }
+    System.out.println(getString);
+    return getString;
+  }
+
+  public void remove(int count) {
+    LLNode<T> itemFront = front;
+
+    if (isEmpty()) {
+      throw new QueueUnderflowException("Remove attempted on empty queue.");
     }
     else
     {
-      //loops from the beginning of the queue to the end
-      for(int i = front; i <= rear; i++)
+      for (int i = count; i > 0; i--)
       {
-        //set the list to string and print it
-        printData = printData + elements[i].toString();
-        System.out.print(elements[i] + " ");
+        if (itemFront != null) {
+          itemFront.getInfo();
+          front = front.getLink();
+          numElements -= count;
+        }
       }
     }
-    return printData;
-  }
-
-  public int space()
-  {
-    System.out.println("Number of elements: " + numElements);
-    return elements.length - numElements;
-  }
-
-  public void remove(int count)
-  {
-    if (count > numElements)
-    {
-      throw new QueueUnderflowException("Count out of bounds.");
-    }
-
-    front = (front + count) % elements.length;
-    numElements -= count;
-    System.out.println(count + " Items Removed. New List: ");
   }
 
   public boolean swapStart()
   {
     T firstElement;
-    int calc = (front + 1) % elements.length;
+    T sndElement;
+    //    int calc = (front + 1) % elements.length;
 
     System.out.println("\nFirst Two Items Swapped: ");
     //if less than 2 elements, do not swap
-    if(elements.length < 2)
+    if(numElements < 2)
     {
       return false;
     }
     else
     {
-      firstElement = elements[front];
-      elements[front] = elements[calc];
-      elements[calc] = firstElement;
+      firstElement = front.getInfo();
+      sndElement = front.getLink().getInfo();
+      front.setInfo(sndElement);
+      front.getLink().setInfo(firstElement);
+      return true;
     }
-    return true;
   }
-
-  public boolean swapEnd()
-  {
-    T firstElement;
-
-    System.out.println("\nLast Two Items Swapped: ");
-
-    int calc = (rear - 1) % elements.length;
-
-    if(elements.length < 2)
-    {
-      return false;
-    }
-    else
-    {
-      firstElement = elements[rear];
-      elements[rear] = elements[calc];
-      elements[calc] = firstElement;
-    }
-    return true;
-  }
+//
+//  public boolean swapEnd()
+//  {
+//    T firstElement;
+//
+//    System.out.println("\nLast Two Items Swapped: ");
+//
+//    int calc = (rear - 1) % elements.length;
+//
+//    if(elements.length < 2)
+//    {
+//      return false;
+//    }
+//    else
+//    {
+//      firstElement = elements[rear];
+//      elements[rear] = elements[calc];
+//      elements[calc] = firstElement;
+//    }
+//    return true;
+//  }
 
 }
 

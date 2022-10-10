@@ -13,25 +13,23 @@ public class Chapter4_22_PatriciaAntlitz
         }
         //prints the list
         newList.toString();
-        //size of the list
-        System.out.println("Size: " + newList.size());
-        //spaces available
-        System.out.println("Empty Space: " + newList.space());
+//        //size of the list
+//        System.out.println("Size: " + newList.size());
+
         //will remove two items from the front
         newList.remove(2);
         newList.toString();
 
         newList.swapStart();
         newList.toString();
-
-        newList.swapEnd();
-        newList.toString();
+//
+//        newList.swapEnd();
+//        newList.toString();
         //tests the dequeue method
         System.out.println("\nDequeue Example: ");
-        newList.dequeue();
-        newList.toString();
+//        newList.dequeue();
+//        newList.toString();
         //prints the empty space again to test
         System.out.println();
-        System.out.println("Empty Space: " + newList.space());
     }
 }
