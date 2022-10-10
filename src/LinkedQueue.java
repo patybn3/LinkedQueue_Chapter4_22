@@ -3,8 +3,7 @@
 //
 // Implements QueueInterface using a linked list.
 //---------------------------------------------------------------------------
-
-import java.util.Iterator;
+//Modified by: Patricia Antlitz
 
 public class LinkedQueue<T> implements QueueInterface<T>
 {
@@ -28,7 +27,6 @@ public class LinkedQueue<T> implements QueueInterface<T>
       rear.setLink(newNode);
       rear = newNode;
       numElements++;
-    System.out.println(element);
   }     
 
   public T dequeue()
@@ -88,6 +86,8 @@ public class LinkedQueue<T> implements QueueInterface<T>
   public void remove(int count) {
     LLNode<T> itemFront = front;
 
+    System.out.println("\n" + count + " Items Removed:");
+
     if (isEmpty()) {
       throw new QueueUnderflowException("Remove attempted on empty queue.");
     }
@@ -125,27 +125,24 @@ public class LinkedQueue<T> implements QueueInterface<T>
       return true;
     }
   }
-//
-//  public boolean swapEnd()
-//  {
-//    T firstElement;
-//
-//    System.out.println("\nLast Two Items Swapped: ");
-//
-//    int calc = (rear - 1) % elements.length;
-//
-//    if(elements.length < 2)
-//    {
-//      return false;
-//    }
-//    else
-//    {
-//      firstElement = elements[rear];
-//      elements[rear] = elements[calc];
-//      elements[calc] = firstElement;
-//    }
-//    return true;
-//  }
 
+  public boolean swapEnd() {
+    T firstElement;
+    T sndElement;
+
+    System.out.println("\nLast Item Swapped With The First: ");
+    //if less than 2 elements, do not swap
+    if (numElements < 2) {
+      return false;
+    }
+    else
+    {
+      firstElement = front.getInfo();
+      sndElement = rear.getInfo();
+      front.setInfo(sndElement);
+      rear.setInfo(firstElement);
+      return true;
+    }
+  }
 }
 
