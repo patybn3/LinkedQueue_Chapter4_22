@@ -40,7 +40,7 @@ public class LinkedQueue<T> implements QueueInterface<T>
       T element;
       element = front.getInfo();
       front = front.getLink();
-      if (front == null)
+      if(front == null)
         rear = null;
       numElements--;
       return element;
